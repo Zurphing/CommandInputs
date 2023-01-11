@@ -84,6 +84,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			WriteByte(Btl0+0x202A9, 2)
 			WriteByte(Btl0+0x202E8, 180)
 			WriteByte(Btl0+0x202B0, 170)
+			WriteByte(Btl0+0x2026C, 155)
 			Up = false
 			Down = false
 			Left = false
@@ -226,6 +227,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202B0, 167)
 		WriteByte(Btl0+0x202A9, 3)
 		WriteByte(Btl0+0x202E8, 0)
+		WriteByte(Btl0+0x2026C, 167)
 		ConsolePrint("Finishing Leap Activated!")
 	end
 
@@ -250,6 +252,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
+		WriteByte(Btl0+0x2026C, 155)
 	end
 
 
