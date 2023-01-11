@@ -3,7 +3,7 @@ LUAGUI_AUTH = "Zurphing"
 LUAGUI_DESC = "Rotate your control stick or the D-Pad to activate a spin attack. You'll only have one second to activate it before you lose it!"
 
 Timer = 70
-Timer2 = 90
+Timer2 = 50
 local Down = false
 local Up = false
 local Right = false
@@ -89,7 +89,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
 	end
-	if ReadByte(Btl0+0x202A9) == 3 and Spin == true then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
+	if ReadByte(Btl0+0x202A9) == 3 and Spin == true or Spin == true and ReadByte(Btl0+0x202B0) == 170 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
 			print("Spin attack timer ran out!")
@@ -159,7 +159,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 
 
 --Swapped from reading byte to check animation to just checking if Command Input == true. Much more stable.
-	if ReadByte(Btl0+0x202A9) == 3 and FlashStep == true then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
+	if ReadByte(Btl0+0x202A9) == 3 and FlashStep == true or FlashStep == true and ReadByte(Btl0+0x20084) == 196 then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
 			print("Flash Step timer ran out!")
@@ -234,7 +234,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 
 
 --Swapped from reading byte to check animation to just checking if Command Input == true. Much more stable.
-	if ReadByte(Btl0+0x202A9) == 3 and SlideDash == true then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
+	if ReadByte(Btl0+0x202A9) == 3 and SlideDash == true or SlideDash == true and ReadByte(Btl0+0x20084) == 192 then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
 			print("Slide Dash timer ran out!")
@@ -298,7 +298,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 
 
 --Swapped from reading byte to check animation to just checking if Command Input == true. Much more stable.
-	if ReadByte(Btl0+0x202A9) == 3 and FinishingLeap == true then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
+	if ReadByte(Btl0+0x202A9) == 3 and FinishingLeap == true or FinishingLeap == true and ReadByte(Btl0+0x202B0) == 167 then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
 			print("Finishing Leap timer ran out!")
@@ -360,7 +360,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 
 
 --Swapped from reading byte to check animation to just checking if Command Input == true. Much more stable.
-	if ReadByte(Btl0+0x20045) == 3 and HoriSlash == true then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
+	if ReadByte(Btl0+0x20045) == 3 and HoriSlash == true or HoriSlash == true and ReadByte(Btl0+0x2004C) == 193 then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
 			print("Hori Slash timer ran out!")
@@ -430,7 +430,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x20047, 0) --Return Combo Offset to Normal. Allows you to immediately start your combo with a magnet burst/aerial finish.
 
 	end
-	if ReadByte(Btl0+0x202A9) == 3 and AoE == true then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
+	if ReadByte(Btl0+0x202A9) == 3 and AoE == true or AoE == true and ReadByte(Btl0+0x2004C) == 197 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
 			print("Spin attack timer ran out!")
@@ -504,7 +504,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x20048, 10)
 		WriteByte(Btl0+0x20047, 0)
 	end
-	if ReadByte(Btl0+0x202A9) == 3 and SingleTarget == true then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
+	if ReadByte(Btl0+0x202A9) == 3 and SingleTarget == true or SingleTarget == true and ReadByte(Btl0+0x20084) == 194  then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
 			print("Single Target Finisher timer ran out!")
@@ -535,22 +535,26 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		end
 	end
 
---if Up == true or Down == true or Right == true or DownRight == true or Down == true or L2 == true or R2 == true then
-	--Timer2 = Timer2 - 1
-	--if Timer2 == 0 then
-	--	print("Inputs not fast enough! Voided!")
-	--	Timer2 = 90 
-	--	Up = false
-	--	Down = false
-	--	Left = false
-	--	Right = false
-	--	DownRight = false
-	--	L2 = false
-	--	R2 = false
-	--	Spin = false
-	--	FlashStep = false
-	--	SlideDash = false
-	--	FinishingLeap = false
-	--	end
-	--end
+--Reset input windows to prevent unwanted commands from coming out. Time is 50 frames, so a little less than a second.
+if Up == true or Down == true or Right == true or DownRight == true or Down == true or L2 == true or R2 == true then
+	Timer2 = Timer2 - 1
+	if Timer2 == 0 then
+		print("Inputs not fast enough! Voided!")
+		Timer2 = 90 
+		Up = false
+		Down = false
+		Left = false
+		Right = false
+		DownRight = false
+		L2 = false
+		R2 = false
+		Spin = false
+		FlashStep = false
+		SlideDash = false
+		FinishingLeap = false
+		HoriSlash = false
+		AoE = false
+		SingleTarget = false
+		end
+	end
 end
