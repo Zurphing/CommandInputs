@@ -2,8 +2,8 @@ LUAGUI_NAME = "Command Inputs"
 LUAGUI_AUTH = "Zurphing"
 LUAGUI_DESC = "Turns nearly every combo modifier into command inputs, using L3/L2/R2/Left Stick"
 
-Timer = 20
-Timer2 = 20
+Timer = 50
+Timer2 = 50
 local Down = false
 local Up = false
 local Right = false
@@ -76,11 +76,11 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 	end
 	
 	--Below: Giant block of conditions. This is just to ensure our command input deactivates properly, and sets the attacks back to their normal state. Can probably be optimized.
-		if ReadByte(Btl0+0x202A9) == 3 and Slapshot == true or Slapshot == true and ReadByte(Btl0+0x202B0) == 170 or SingleTarget == true and ReadByte(Btl0+0x20084) == 194 or AoE == true and ReadByte(Btl0+0x2004C) == 197 or HoriSlash == true and ReadByte(Btl0+0x2004C) == 193 or FinishingLeap == true and ReadByte(Btl0+0x202B0) == 167 or SlideDash == true and ReadByte(Btl0+0x20084) == 192 or FlashStep == true and ReadByte(Btl0+0x20084) == 196 or Spin == true and ReadByte(Btl0+0x202B0) == 170 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
+		if ReadByte(Btl0+0x202A9) == 3 and Slapshot == true or Slapshot == true and ReadByte(Btl0+0x202B0) == 170 or SingleTarget == true and ReadByte(Btl0+0x202B0) == 165 or AoE == true and ReadByte(Btl0+0x2004C) == 197 or HoriSlash == true and ReadByte(Btl0+0x2004C) == 193 or FinishingLeap == true and ReadByte(Btl0+0x202B0) == 167 or SlideDash == true and ReadByte(Btl0+0x20084) == 192 or FlashStep == true and ReadByte(Btl0+0x20084) == 196 or Spin == true and ReadByte(Btl0+0x202B0) == 170 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
 			print("Command Input timer ran out!")
-			Timer = 20 
+			Timer = 50 
 			WriteByte(Btl0+0x202A9, 2)
 			WriteByte(Btl0+0x202E8, 180)
 			WriteByte(Btl0+0x202B0, 170)
@@ -255,7 +255,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 
 
 --AERIALS:
-	if L2 == true and Right == true and Left == true and HoriSlash ~= true then --Flash Step Conditions Met
+	if L2 == true and Right == true and HoriSlash ~= true or L2 == true and Left == true and HoriSlash ~= true then --Flash Step Conditions Met
 		HoriSlash = true
 		print("HoriSlash ready!")
 		WriteByte(Btl0+0x2004C, 193) --Aerial Sweep animation
@@ -297,6 +297,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202A9, 3) --Vicinity Break: Type
 		WriteByte(Btl0+0x202E8, 0) --Vicinity Break: Ability Required
 		WriteByte(Btl0+0x202B0, 166)
+		WriteByte(Btl0+0x2026C, 166) --Finisher Single entry. Change this to allow inputting Explosion after Flash Step.
 		WriteByte(Btl0+0x202AC, 4)
 		WriteByte(Btl0+0x202AB, 4) --Vicinity Break: Combo Offset. Should allow comboing Guard Break into Explosion.
 		WriteByte(Btl0+0x2004C, 197) --Aerial Sweep animation
@@ -327,6 +328,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
+		WriteByte(Btl0+0x2026C, 155)
 		--Aerial stuff: Input shared w/ Magnet Splash
 		WriteByte(Btl0+0x2004C, 1) 	 
 		WriteByte(Btl0+0x20045, 97) 
@@ -345,6 +347,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202B0, 165)
 		WriteByte(Btl0+0x202AC, 4) --Vicinity Break: Flags. Should allow comboing Guard Break into Explosion.
 		WriteByte(Btl0+0x202AB, 4) --Vicinity Break: Combo Offset. Should allow comboing Guard Break into Explosion.
+		WriteByte(Btl0+0x2026C, 165) --Finisher Single entry. Allows you to input commands to instantly go to guard break from Flash step/Sliding Dash.
 		--WriteByte(Btl0+0x2004C, 194) --Aerial Sweep animation		Aerial Finish. Commented out for now.
 		--WriteByte(Btl0+0x20045, 3) --Aerial Sweep type		
 		--WriteByte(Btl0+0x20084, 0) --Aerial Sweep ability
@@ -373,6 +376,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
+		WriteByte(Btl0+0x2026C, 155) --Finisher Single entry. Allows you to input commands to instantly go to guard break from Flash step/Sliding Dash.
 		--Aerial stuff: Input is shared with Aerial Finish
 		WriteByte(Btl0+0x2004C, 1) 	 
 		WriteByte(Btl0+0x20045, 97) 
@@ -386,7 +390,7 @@ if Up == true or Down == true or Right == true or DownRight == true or Down == t
 	Timer2 = Timer2 - 1
 	if Timer2 == 0 then
 		print("Inputs not fast enough! Voided!")
-		Timer2 = 20 
+		Timer2 = 50 
 		Up = false
 		Down = false
 		Left = false
@@ -411,6 +415,7 @@ if Up == true or Down == true or Right == true or DownRight == true or Down == t
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
+		WriteByte(Btl0+0x2026C, 155)
 		end
 	end
 
