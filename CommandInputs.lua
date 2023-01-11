@@ -16,6 +16,8 @@ local FlashStep = false
 local SlideDash = false
 local FinishingLeap = false
 local HoriSlash = false
+local AoE = false
+local SingleTarget = false
 function _OnInit()
     if GAME_ID == 0x431219CC and ENGINE_TYPE == "BACKEND" then
         ConsolePrint('PC version detected. Running script.')
@@ -81,6 +83,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		SlideDash = false
 		FinishingLeap = false
 		HoriSlash = false
+		AoE = false
+		SingleTarget = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -105,6 +109,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			SlideDash = false
 			FinishingLeap = false
 			HoriSlash = false
+			AoE = false
+			SingleTarget = false
 		end
 	end
 	
@@ -138,6 +144,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		SlideDash = false
 		FinishingLeap = false
 		HoriSlash = false
+		AoE = false
+		SingleTarget = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -171,6 +179,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			SlideDash = false
 			FinishingLeap = false
 			HoriSlash = false
+			AoE = false
+			SingleTarget = false
 			--Aerial stuff: Input is shared with Aerial Dive
 			WriteByte(Btl0+0x2004C, 1) 	 
 			WriteByte(Btl0+0x20045, 97) 
@@ -210,6 +220,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		SlideDash = false
 		FinishingLeap = false
 		HoriSlash = false
+		AoE = false
+		SingleTarget = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -242,6 +254,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			SlideDash = false
 			FinishingLeap = false
 			HoriSlash = false
+			AoE = false
+			SingleTarget = false
 			--Aerial stuff: Input is shared with Aerial Spiral
 			WriteByte(Btl0+0x2004C, 1) 	 
 			WriteByte(Btl0+0x20045, 97) 
@@ -275,6 +289,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		SlideDash = false
 		FinishingLeap = false
 		HoriSlash = false
+		AoE = false
+		SingleTarget = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -302,6 +318,9 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			SlideDash = false
 			FinishingLeap = false
 			HoriSlash = false
+			AoE = false
+			SingleTarget = false
+
 		end
 	end
 
@@ -331,6 +350,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		SlideDash = false
 		FinishingLeap = false
 		HoriSlash = false
+		AoE = false
+		SingleTarget = false
 		WriteByte(Btl0+0x2004C, 1) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x20045, 97) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x20084, 191)
@@ -360,9 +381,159 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			SlideDash = false
 			FinishingLeap = false
 			HoriSlash = false
+			AoE = false
+			SingleTarget = false
+
 		end
 	end
 
+--AoE Finishers: Magnet Burst & Explosion
+	if R2 == true and Down == true and AoE ~= true then
+		AoE = true
+		print("AoE Finisher queued up!")
+		WriteByte(Btl0+0x202A9, 3) --Vicinity Break: Type
+		WriteByte(Btl0+0x202E8, 0) --Vicinity Break: Ability Required
+		WriteByte(Btl0+0x202B0, 166)
+		WriteByte(Btl0+0x202AC, 4)
+		WriteByte(Btl0+0x202AB, 4) --Vicinity Break: Combo Offset. Should allow comboing Guard Break into Explosion.
+		WriteByte(Btl0+0x2004C, 197) --Aerial Sweep animation
+		WriteByte(Btl0+0x20045, 3) --Aerial Sweep type
+		WriteByte(Btl0+0x20084, 0) --Aerial Sweep ability
+		WriteByte(Btl0+0x20048, 5) --Aerial Sweep Flags (Will not activate without this)
+		WriteByte(Btl0+0x20047, 4) --Aerial Sweep: Combo Offset. Will allow aerials to be inputted immediately.
+	end
+	if AoE == true and ReadInput & 16384 == 16384 then
+		--ConsolePrint("DEBUG: Spin Attack Activated!")
+		print("AoE Finisher used up!")
+		Up = false
+		Down = false
+		Left = false
+		Right = false
+		DownRight = false
+		L2 = false
+		R2 = false
+		Spin = false
+		FlashStep = false
+		SlideDash = false
+		FinishingLeap = false
+		HoriSlash = false
+		AoE = false
+		SingleTarget = false
+		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
+		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
+		WriteByte(Btl0+0x202B0, 170)
+		--Aerial stuff: Input shared w/ Magnet Splash
+		WriteByte(Btl0+0x2004C, 1) 	 
+		WriteByte(Btl0+0x20045, 97) 
+		WriteByte(Btl0+0x20084, 191)
+		WriteByte(Btl0+0x20048, 10)
+		WriteByte(Btl0+0x20047, 0) --Return Combo Offset to Normal. Allows you to immediately start your combo with a magnet burst/aerial finish.
+
+	end
+	if ReadByte(Btl0+0x202A9) == 3 and AoE == true then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
+		Timer = Timer - 1
+		if Timer == 0 then
+			print("Spin attack timer ran out!")
+			Timer = 70 
+			WriteByte(Btl0+0x202A9, 2)
+			WriteByte(Btl0+0x202E8, 180)
+			WriteByte(Btl0+0x202B0, 170)
+			Up = false
+			Down = false
+			Left = false
+			Right = false
+			DownRight = false
+			L2 = false
+			R2 = false
+			Spin = false
+			FlashStep = false
+			SlideDash = false
+			FinishingLeap = false
+			HoriSlash = false
+			AoE = false
+			SingleTarget = false
+			--Aerial stuff: Input is shared with Magnet Splash
+			WriteByte(Btl0+0x2004C, 1) 	 
+			WriteByte(Btl0+0x20045, 97) 
+			WriteByte(Btl0+0x20084, 191)
+			WriteByte(Btl0+0x20048, 10)
+			WriteByte(Btl0+0x20047, 0) --Return Combo Offset to Normal. Allows you to immediately start your combo with a magnet burst/aerial finish.
+
+		end
+	end
+
+--Single Target Finishers: Guard Break & Aerial Finish
+	if R2 == true and Up == true and SingleTarget ~= true then
+		SingleTarget = true
+		print("Single Target Finisher queued up!")
+		WriteByte(Btl0+0x202A9, 3) --Vicinity Break: Type
+		WriteByte(Btl0+0x202E8, 0) --Vicinity Break: Ability Required
+		WriteByte(Btl0+0x202B0, 165)
+		WriteByte(Btl0+0x202AC, 4) --Vicinity Break: Flags. Should allow comboing Guard Break into Explosion.
+		WriteByte(Btl0+0x202AB, 4) --Vicinity Break: Combo Offset. Should allow comboing Guard Break into Explosion.
+		WriteByte(Btl0+0x2004C, 194) --Aerial Sweep animation
+		WriteByte(Btl0+0x20045, 3) --Aerial Sweep type
+		WriteByte(Btl0+0x20084, 0) --Aerial Sweep ability
+		WriteByte(Btl0+0x20048, 5) --Aerial Sweep Flags (Will not activate without this)
+		WriteByte(Btl0+0x20047, 4) --Aerial Sweep: Combo Offset. Will allow aerials to be inputted immediately.
+	end
+	if SingleTarget == true and ReadInput & 16384 == 16384 then
+		--ConsolePrint("DEBUG: Spin Attack Activated!")
+		print("Single Target Finisher used up!")
+		Up = false
+		Down = false
+		Left = false
+		Right = false
+		DownRight = false
+		L2 = false
+		R2 = false
+		Spin = false
+		FlashStep = false
+		SlideDash = false
+		FinishingLeap = false
+		HoriSlash = false
+		AoE = false
+		SingleTarget = false
+		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
+		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
+		WriteByte(Btl0+0x202B0, 170)
+		--Aerial stuff: Input is shared with Aerial Finish
+		WriteByte(Btl0+0x2004C, 1) 	 
+		WriteByte(Btl0+0x20045, 97) 
+		WriteByte(Btl0+0x20084, 191)
+		WriteByte(Btl0+0x20048, 10)
+		WriteByte(Btl0+0x20047, 0)
+	end
+	if ReadByte(Btl0+0x202A9) == 3 and SingleTarget == true then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
+		Timer = Timer - 1
+		if Timer == 0 then
+			print("Single Target Finisher timer ran out!")
+			Timer = 70 
+			WriteByte(Btl0+0x202A9, 2)
+			WriteByte(Btl0+0x202E8, 180)
+			WriteByte(Btl0+0x202B0, 170)
+			Up = false
+			Down = false
+			Left = false
+			Right = false
+			DownRight = false
+			L2 = false
+			R2 = false
+			Spin = false
+			FlashStep = false
+			SlideDash = false
+			FinishingLeap = false
+			HoriSlash = false
+			AoE = false
+			SingleTarget = false
+			--Aerial stuff: Input is shared with Aerial Finish
+			WriteByte(Btl0+0x2004C, 1) 	 
+			WriteByte(Btl0+0x20045, 97) 
+			WriteByte(Btl0+0x20084, 191)
+			WriteByte(Btl0+0x20048, 10)
+			WriteByte(Btl0+0x20047, 0) --Return Combo Offset to normal.
+		end
+	end
 
 --if Up == true or Down == true or Right == true or DownRight == true or Down == true or L2 == true or R2 == true then
 	--Timer2 = Timer2 - 1
