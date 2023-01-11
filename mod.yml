@@ -1,6 +1,6 @@
 title: Command Inputs
 originalAuthor: Zurphing
-description: Activate combo modifiers using various command inputs with the left stick, L3, L2 & R2 buttons. L2 + Up = Flash Step(Ground) & Aerial Dive(Air)
+description: Activate combo modifiers using various command inputs with the left stick, L3, L2 & R2 buttons. L2+Up = Flash Step/Aerial Dive. L2+Down = Slide Dash/Aerial Spiral. L2+Left or L2+Right = Hori Slash. L3 = Slapshot. L2 + Down+DownRight+Right = Finishing Leap. Spin stick 360 for Vicinity Break. R2+Up = Guard Break. R2+Down = Explosion/Magnet Burst
 assets:
 - name: scripts/CommandInputs.lua
   method: copy
