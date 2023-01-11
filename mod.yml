@@ -1,6 +1,6 @@
 title: Command Inputs
 originalAuthor: Zurphing
-description: Activate combo modifiers using various command inputs with the left stick, L2 & R2 buttons. Left Stick spun 360 degrees: Vicinity Break  L3 (Left stick clicked in): Slapshot  L2 + Left Stick Up: Flash Step  L2 + Left Stick Down: Slide Dash  L2 + Left Stick Down + Left Stick DownRight + Left Stick Right (Can be done in any order): Finishing Leap  L2 + Left Stick Left or L2 + Left Stick Right: Horizontal Slash  L2 + Left Stick Up: Aerial Dive  L2 + Left Stick Down: Aerial Spiral  R2 + Left Stick Down: Magnet Burst (Air)/Explosion (Ground)  R2 + Left Stick Up: Guard Break (Ground)
+description: Activate combo modifiers using various command inputs with the left stick, L2 & R2 buttons.
 assets:
 - name: scripts/CommandInputs.lua
   method: copy
