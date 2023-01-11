@@ -116,6 +116,11 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202B0, 169)
 		WriteByte(Btl0+0x202A9, 3)
 		WriteByte(Btl0+0x202E8, 0)
+		--Aerial stuff: Input is shared wtih Aerial Dive
+		WriteByte(Btl0+0x2004C, 196) --Aerial Sweep animation
+		WriteByte(Btl0+0x20045, 3) --Aerial Sweep type
+		WriteByte(Btl0+0x20084, 0) --Aerial Sweep ability
+		WriteByte(Btl0+0x20048, 1) --Aerial Sweep Flags (Will not activate without this)
 		ConsolePrint("Flash Step Activated!")
 	end
 
@@ -136,6 +141,12 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
+		--Aerial stuff: Input is shared with Aerial Dive
+		WriteByte(Btl0+0x2004C, 1) 	 
+		WriteByte(Btl0+0x20045, 97) 
+		WriteByte(Btl0+0x20084, 191)
+		WriteByte(Btl0+0x20048, 10)
+
 	end
 
 
@@ -160,6 +171,12 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			SlideDash = false
 			FinishingLeap = false
 			HoriSlash = false
+			--Aerial stuff: Input is shared with Aerial Dive
+			WriteByte(Btl0+0x2004C, 1) 	 
+			WriteByte(Btl0+0x20045, 97) 
+			WriteByte(Btl0+0x20084, 191)
+			WriteByte(Btl0+0x20048, 10)
+
 		end
 	end
 
@@ -171,6 +188,11 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202B0, 164)
 		WriteByte(Btl0+0x202A9, 3)
 		WriteByte(Btl0+0x202E8, 0)
+		--Aerial stuff: Input is shared wtih Aerial Dive
+		WriteByte(Btl0+0x2004C, 192) --Aerial Sweep animation
+		WriteByte(Btl0+0x20045, 3) --Aerial Sweep type
+		WriteByte(Btl0+0x20084, 0) --Aerial Sweep ability
+		WriteByte(Btl0+0x20048, 1) --Aerial Sweep Flags (Will not activate without this)
 		ConsolePrint("Slide Dash Activated!")
 	end
 
@@ -191,6 +213,11 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
+		--Aerial stuff: Input is shared with Aerial Spiral
+		WriteByte(Btl0+0x2004C, 1) 	 
+		WriteByte(Btl0+0x20045, 97) 
+		WriteByte(Btl0+0x20084, 191)
+		WriteByte(Btl0+0x20048, 10)
 	end
 
 
@@ -215,6 +242,11 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			SlideDash = false
 			FinishingLeap = false
 			HoriSlash = false
+			--Aerial stuff: Input is shared with Aerial Spiral
+			WriteByte(Btl0+0x2004C, 1) 	 
+			WriteByte(Btl0+0x20045, 97) 
+			WriteByte(Btl0+0x20084, 191)
+			WriteByte(Btl0+0x20048, 10)
 		end
 	end
 
