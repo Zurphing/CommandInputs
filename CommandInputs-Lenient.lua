@@ -1,6 +1,6 @@
-LUAGUI_NAME = "Spin Attack"
+LUAGUI_NAME = "Command Inputs"
 LUAGUI_AUTH = "Zurphing"
-LUAGUI_DESC = "Rotate your control stick or the D-Pad to activate a spin attack. You'll only have one second to activate it before you lose it!"
+LUAGUI_DESC = "Turns nearly every combo modifier into command inputs, using L3/L2/R2/Left Stick"
 
 Timer = 70
 Timer2 = 50
