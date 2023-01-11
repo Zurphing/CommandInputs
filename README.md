@@ -15,4 +15,9 @@ L2 + Left Stick Up: Aerial Dive </br>
 L2 + Left Stick Down: Aerial Spiral </br>
 
 
+Finishers: </br>
+R2 + Left Stick Down: Magnet Burst (Air)/Explosion (Ground) </br>
+R2 + Left Stick Up: Aerial Finish (Air)/Guard Break (Ground) </br>
+
+
 Command inputs are subject to change.
