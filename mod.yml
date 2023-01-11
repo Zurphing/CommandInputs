@@ -1,0 +1,8 @@
+title: Command Inputs
+originalAuthor: Zurphing
+description: Activate combo modifiers using various command inputs with the left stick, L2 & R2 buttons. WIP for now.
+assets:
+- name: scripts/CommandInputs.lua
+  method: copy
+  source:
+  - name: CommandInputs.lua
