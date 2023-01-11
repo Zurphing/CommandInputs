@@ -11,7 +11,7 @@ local Left = false
 local DownRight = false
 local R2 = false
 local L2 = false
-local R3 = false
+local L3 = false
 local Spin = false
 local FlashStep = false
 local SlideDash = false
@@ -54,9 +54,9 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		print("Right activated!")
 		--ConsolePrint("DEBUG: Right direction")
 	end
-	if ReadInput & 2 == 2 and R3 == false then
-		R3 = true
-		print("R3 activated!")
+	if ReadInput & 2 == 2 and L3 == false then
+		L3 = true
+		print("L3 activated!")
 	end
 	if ReadStick == 128 and Right == false then
 		Right = true
@@ -74,33 +74,12 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202E8, 0) --Vicinity Break: Ability Required
 		WriteByte(Btl0+0x202B0, 170)
 	end
-	if Spin == true and ReadInput & 16384 == 16384 then
-		--ConsolePrint("DEBUG: Spin Attack Activated!")
-		print("Spin attack used up!")
-		Up = false
-		Down = false
-		Left = false
-		Right = false
-		DownRight = false
-		L2 = false
-		R2 = false
-		R3 = false
-		Spin = false
-		FlashStep = false
-		SlideDash = false
-		FinishingLeap = false
-		HoriSlash = false
-		AoE = false
-		SingleTarget = false
-		Slapshot = false
-		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
-		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
-		WriteByte(Btl0+0x202B0, 170)
-	end
-	if ReadByte(Btl0+0x202A9) == 3 and Spin == true or Spin == true and ReadByte(Btl0+0x202B0) == 170 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
+	
+	--Below: Giant block of conditions. This is just to ensure our command input deactivates properly, and sets the attacks back to their normal state. Can probably be optimized.
+		if ReadByte(Btl0+0x202A9) == 3 and Slapshot == true or Slapshot == true and ReadByte(Btl0+0x202B0) == 170 or SingleTarget == true and ReadByte(Btl0+0x20084) == 194 or AoE == true and ReadByte(Btl0+0x2004C) == 197 or HoriSlash == true and ReadByte(Btl0+0x2004C) == 193 or FinishingLeap == true and ReadByte(Btl0+0x202B0) == 167 or SlideDash == true and ReadByte(Btl0+0x20084) == 192 or FlashStep == true and ReadByte(Btl0+0x20084) == 196 or Spin == true and ReadByte(Btl0+0x202B0) == 170 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
 		Timer = Timer - 1
 		if Timer == 0 then
-			print("Spin attack timer ran out!")
+			print("Command Input timer ran out!")
 			Timer = 70 
 			WriteByte(Btl0+0x202A9, 2)
 			WriteByte(Btl0+0x202E8, 180)
@@ -112,7 +91,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			DownRight = false
 			L2 = false
 			R2 = false
-			R3 = false
+			L3 = false
 			Spin = false
 			FlashStep = false
 			SlideDash = false
@@ -121,9 +100,36 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			AoE = false
 			SingleTarget = false
 			Slapshot = false
+			WriteByte(Btl0+0x2004C, 1) 	 
+			WriteByte(Btl0+0x20045, 97) 
+			WriteByte(Btl0+0x20084, 191)
+			WriteByte(Btl0+0x20048, 10)
 		end
 	end
-	
+
+	if Spin == true and ReadInput & 16384 == 16384 then
+		--ConsolePrint("DEBUG: Spin Attack Activated!")
+		print("Spin attack used up!")
+		Up = false
+		Down = false
+		Left = false
+		Right = false
+		DownRight = false
+		L2 = false
+		R2 = false
+		L3 = false
+		Spin = false
+		FlashStep = false
+		SlideDash = false
+		FinishingLeap = false
+		HoriSlash = false
+		AoE = false
+		SingleTarget = false
+		Slapshot = false
+		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
+		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
+		WriteByte(Btl0+0x202B0, 170)
+	end	
 	
 	--Flash Step Stuff
 	if L2 == true and Up == true and FlashStep ~= true then --Flash Step Conditions Met
@@ -149,7 +155,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
-		R3 = false
+		L3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -167,41 +173,6 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x20084, 191)
 		WriteByte(Btl0+0x20048, 10)
 
-	end
-
-
---Swapped from reading byte to check animation to just checking if Command Input == true. Much more stable.
-	if ReadByte(Btl0+0x202A9) == 3 and FlashStep == true or FlashStep == true and ReadByte(Btl0+0x20084) == 196 then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
-		Timer = Timer - 1
-		if Timer == 0 then
-			print("Flash Step timer ran out!")
-			Timer = 70 
-			WriteByte(Btl0+0x202A9, 2)
-			WriteByte(Btl0+0x202E8, 180)
-			WriteByte(Btl0+0x202B0, 170)
-			Up = false
-			Down = false
-			Left = false
-			Right = false
-			DownRight = false
-			L2 = false
-			R2 = false
-			R3 = false
-			Spin = false
-			FlashStep = false
-			SlideDash = false
-			FinishingLeap = false
-			HoriSlash = false
-			AoE = false
-			SingleTarget = false
-			Slapshot = false
-			--Aerial stuff: Input is shared with Aerial Dive
-			WriteByte(Btl0+0x2004C, 1) 	 
-			WriteByte(Btl0+0x20045, 97) 
-			WriteByte(Btl0+0x20084, 191)
-			WriteByte(Btl0+0x20048, 10)
-
-		end
 	end
 
 
@@ -229,7 +200,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
-		R3 = false
+		L3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -247,41 +218,6 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x20084, 191)
 		WriteByte(Btl0+0x20048, 10)
 	end
-
-
---Swapped from reading byte to check animation to just checking if Command Input == true. Much more stable.
-	if ReadByte(Btl0+0x202A9) == 3 and SlideDash == true or SlideDash == true and ReadByte(Btl0+0x20084) == 192 then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
-		Timer = Timer - 1
-		if Timer == 0 then
-			print("Slide Dash timer ran out!")
-			Timer = 70 
-			WriteByte(Btl0+0x202A9, 2)
-			WriteByte(Btl0+0x202E8, 180)
-			WriteByte(Btl0+0x202B0, 170)
-			Up = false
-			Down = false
-			Left = false
-			Right = false
-			DownRight = false
-			L2 = false
-			R2 = false
-			R3 = false
-			Spin = false
-			FlashStep = false
-			SlideDash = false
-			FinishingLeap = false
-			HoriSlash = false
-			AoE = false
-			SingleTarget = false
-			Slapshot = false
-			--Aerial stuff: Input is shared with Aerial Spiral
-			WriteByte(Btl0+0x2004C, 1) 	 
-			WriteByte(Btl0+0x20045, 97) 
-			WriteByte(Btl0+0x20084, 191)
-			WriteByte(Btl0+0x20048, 10)
-		end
-	end
-
 
 
 	if L2 == true and Down == true and DownRight == true and Right == true and FinishingLeap ~= true then --Flash Step Conditions Met
@@ -302,7 +238,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
-		R3 = false
+		L3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -316,35 +252,6 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202B0, 170)
 	end
 
-
---Swapped from reading byte to check animation to just checking if Command Input == true. Much more stable.
-	if ReadByte(Btl0+0x202A9) == 3 and FinishingLeap == true or FinishingLeap == true and ReadByte(Btl0+0x202B0) == 167 then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
-		Timer = Timer - 1
-		if Timer == 0 then
-			print("Finishing Leap timer ran out!")
-			Timer = 70 
-			WriteByte(Btl0+0x202A9, 2)
-			WriteByte(Btl0+0x202E8, 180)
-			WriteByte(Btl0+0x202B0, 170)
-			Up = false
-			Down = false
-			Left = false
-			Right = false
-			DownRight = false
-			L2 = false
-			R2 = false
-			R3 = false
-			Spin = false
-			FlashStep = false
-			SlideDash = false
-			FinishingLeap = false
-			HoriSlash = false
-			AoE = false
-			SingleTarget = false
-			Slapshot = false
-
-		end
-	end
 
 
 --AERIALS:
@@ -367,7 +274,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
-		R3 = false
+		L3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -383,38 +290,8 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 	end
 
 
---Swapped from reading byte to check animation to just checking if Command Input == true. Much more stable.
-	if ReadByte(Btl0+0x20045) == 3 and HoriSlash == true or HoriSlash == true and ReadByte(Btl0+0x2004C) == 193 then --ReadByte(Btl0+0x202A9) == 169 then --If Flash Command Input is entered.
-		Timer = Timer - 1
-		if Timer == 0 then
-			print("Hori Slash timer ran out!")
-			Timer = 70 
-			WriteByte(Btl0+0x2004C, 1) 	 
-			WriteByte(Btl0+0x20045, 97) 
-			WriteByte(Btl0+0x20084, 191)
-			WriteByte(Btl0+0x20048, 10)
-			Up = false
-			Down = false
-			Left = false
-			Right = false
-			DownRight = false
-			L2 = false
-			R2 = false
-			R3 = false
-			Spin = false
-			FlashStep = false
-			SlideDash = false
-			FinishingLeap = false
-			HoriSlash = false
-			AoE = false
-			SingleTarget = false
-			Slapshot = false
-
-		end
-	end
-
 --AoE Finishers: Magnet Burst & Explosion
-	if R2 == true and Down == true and AoE ~= true then
+	if Down == true and R2 == true and AoE ~= true then
 		AoE = true
 		print("AoE Finisher queued up!")
 		WriteByte(Btl0+0x202A9, 3) --Vicinity Break: Type
@@ -438,7 +315,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
-		R3 = false
+		L3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -458,39 +335,6 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x20047, 0) --Return Combo Offset to Normal. Allows you to immediately start your combo with a magnet burst/aerial finish.
 
 	end
-	if ReadByte(Btl0+0x202A9) == 3 and AoE == true or AoE == true and ReadByte(Btl0+0x2004C) == 197 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
-		Timer = Timer - 1
-		if Timer == 0 then
-			print("Spin attack timer ran out!")
-			Timer = 70 
-			WriteByte(Btl0+0x202A9, 2)
-			WriteByte(Btl0+0x202E8, 180)
-			WriteByte(Btl0+0x202B0, 170)
-			Up = false
-			Down = false
-			Left = false
-			Right = false
-			DownRight = false
-			L2 = false
-			R2 = false
-			R3 = false
-			Spin = false
-			FlashStep = false
-			SlideDash = false
-			FinishingLeap = false
-			HoriSlash = false
-			AoE = false
-			SingleTarget = false
-			Slapshot = false
-			--Aerial stuff: Input is shared with Magnet Splash
-			WriteByte(Btl0+0x2004C, 1) 	 
-			WriteByte(Btl0+0x20045, 97) 
-			WriteByte(Btl0+0x20084, 191)
-			WriteByte(Btl0+0x20048, 10)
-			WriteByte(Btl0+0x20047, 0) --Return Combo Offset to Normal. Allows you to immediately start your combo with a magnet burst/aerial finish.
-
-		end
-	end
 
 --Single Target Finishers: Guard Break & Aerial Finish
 	if R2 == true and Up == true and SingleTarget ~= true then
@@ -501,11 +345,11 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x202B0, 165)
 		WriteByte(Btl0+0x202AC, 4) --Vicinity Break: Flags. Should allow comboing Guard Break into Explosion.
 		WriteByte(Btl0+0x202AB, 4) --Vicinity Break: Combo Offset. Should allow comboing Guard Break into Explosion.
-		WriteByte(Btl0+0x2004C, 194) --Aerial Sweep animation
-		WriteByte(Btl0+0x20045, 3) --Aerial Sweep type
-		WriteByte(Btl0+0x20084, 0) --Aerial Sweep ability
-		WriteByte(Btl0+0x20048, 5) --Aerial Sweep Flags (Will not activate without this)
-		WriteByte(Btl0+0x20047, 4) --Aerial Sweep: Combo Offset. Will allow aerials to be inputted immediately.
+		--WriteByte(Btl0+0x2004C, 194) --Aerial Sweep animation		Aerial Finish. Commented out for now.
+		--WriteByte(Btl0+0x20045, 3) --Aerial Sweep type		
+		--WriteByte(Btl0+0x20084, 0) --Aerial Sweep ability
+		--WriteByte(Btl0+0x20048, 5) --Aerial Sweep Flags (Will not activate without this)
+		--WriteByte(Btl0+0x20047, 4) --Aerial Sweep: Combo Offset. Will allow aerial finishes to be inputted immediately.
 	end
 	if SingleTarget == true and ReadInput & 16384 == 16384 then
 		--ConsolePrint("DEBUG: Spin Attack Activated!")
@@ -517,7 +361,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
-		R3 = false
+		L3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -536,41 +380,9 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		WriteByte(Btl0+0x20048, 10)
 		WriteByte(Btl0+0x20047, 0)
 	end
-	if ReadByte(Btl0+0x202A9) == 3 and SingleTarget == true or SingleTarget == true and ReadByte(Btl0+0x20084) == 194  then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
-		Timer = Timer - 1
-		if Timer == 0 then
-			print("Single Target Finisher timer ran out!")
-			Timer = 70 
-			WriteByte(Btl0+0x202A9, 2)
-			WriteByte(Btl0+0x202E8, 180)
-			WriteByte(Btl0+0x202B0, 170)
-			Up = false
-			Down = false
-			Left = false
-			Right = false
-			DownRight = false
-			L2 = false
-			R2 = false
-			R3 = false
-			Spin = false
-			FlashStep = false
-			SlideDash = false
-			FinishingLeap = false
-			HoriSlash = false
-			AoE = false
-			SingleTarget = false
-			Slapshot = false
-			--Aerial stuff: Input is shared with Aerial Finish
-			WriteByte(Btl0+0x2004C, 1) 	 
-			WriteByte(Btl0+0x20045, 97) 
-			WriteByte(Btl0+0x20084, 191)
-			WriteByte(Btl0+0x20048, 10)
-			WriteByte(Btl0+0x20047, 0) --Return Combo Offset to normal.
-		end
-	end
 
 --Reset input windows to prevent unwanted commands from coming out. Time is 50 frames, so a little less than a second.
-if Up == true or Down == true or Right == true or DownRight == true or Down == true or L2 == true or R2 == true or R3 == true then
+if Up == true or Down == true or Right == true or DownRight == true or Down == true or L2 == true or R2 == true or L3 == true then
 	Timer2 = Timer2 - 1
 	if Timer2 == 0 then
 		print("Inputs not fast enough! Voided!")
@@ -582,7 +394,7 @@ if Up == true or Down == true or Right == true or DownRight == true or Down == t
 		DownRight = false
 		L2 = false
 		R2 = false
-		R3 = false
+		L3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -591,10 +403,18 @@ if Up == true or Down == true or Right == true or DownRight == true or Down == t
 		AoE = false
 		SingleTarget = false
 		Slapshot = false
+		WriteByte(Btl0+0x2004C, 1) 	 
+		WriteByte(Btl0+0x20045, 97) 
+		WriteByte(Btl0+0x20084, 191)
+		WriteByte(Btl0+0x20048, 10)
+		WriteByte(Btl0+0x20047, 0)
+		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
+		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
+		WriteByte(Btl0+0x202B0, 170)
 		end
 	end
 
-	if R3 == true and Slapshot ~= true then
+	if L3 == true and Slapshot ~= true then
 		Slapshot = true
 		print("Slapshot queued up!")
 		WriteByte(Btl0+0x202A9, 3) --Vicinity Break: Type
@@ -613,7 +433,7 @@ if Up == true or Down == true or Right == true or DownRight == true or Down == t
 		DownRight = false
 		L2 = false
 		R2 = false
-		R3 = false
+		L3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -626,32 +446,4 @@ if Up == true or Down == true or Right == true or DownRight == true or Down == t
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
 	end
-	if ReadByte(Btl0+0x202A9) == 3 and Slapshot == true or Slapshot == true and ReadByte(Btl0+0x202B0) == 170 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
-		Timer = Timer - 1
-		if Timer == 0 then
-			print("Spin attack timer ran out!")
-			Timer = 70 
-			WriteByte(Btl0+0x202A9, 2)
-			WriteByte(Btl0+0x202E8, 180)
-			WriteByte(Btl0+0x202B0, 170)
-			Up = false
-			Down = false
-			Left = false
-			Right = false
-			DownRight = false
-			L2 = false
-			R2 = false
-			R3 = false
-			Spin = false
-			FlashStep = false
-			SlideDash = false
-			FinishingLeap = false
-			HoriSlash = false
-			AoE = false
-			SingleTarget = false
-			Slapshot = false
-		end
-	end
-
-
 end
