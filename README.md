@@ -11,5 +11,8 @@ L2 + Left Stick Right + Left Stick Down + Left Stick Down Right (similar to a sh
 
 Aerials:  </br>
 L2 + Left Stick Left + Left Stick Right: Horizontal Slash  </br>
+L2 + Left Stick Up: Aerial Dive </br>
+L2 + Left Stick Down: Aerial Spiral </br>
+
 
 Command inputs are subject to change.
