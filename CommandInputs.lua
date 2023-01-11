@@ -11,6 +11,7 @@ local Left = false
 local DownRight = false
 local R2 = false
 local L2 = false
+local R3 = false
 local Spin = false
 local FlashStep = false
 local SlideDash = false
@@ -18,6 +19,7 @@ local FinishingLeap = false
 local HoriSlash = false
 local AoE = false
 local SingleTarget = false
+local Slapshot = false
 function _OnInit()
     if GAME_ID == 0x431219CC and ENGINE_TYPE == "BACKEND" then
         ConsolePrint('PC version detected. Running script.')
@@ -52,6 +54,10 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		print("Right activated!")
 		--ConsolePrint("DEBUG: Right direction")
 	end
+	if ReadInput & 2 == 2 and R3 == false then
+		R3 = true
+		print("R3 activated!")
+	end
 	if ReadStick == 128 and Right == false then
 		Right = true
 		print("Down activated!")
@@ -78,6 +84,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
+		R3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -85,6 +92,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		HoriSlash = false
 		AoE = false
 		SingleTarget = false
+		Slapshot = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -104,6 +112,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			DownRight = false
 			L2 = false
 			R2 = false
+			R3 = false
 			Spin = false
 			FlashStep = false
 			SlideDash = false
@@ -111,6 +120,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			HoriSlash = false
 			AoE = false
 			SingleTarget = false
+			Slapshot = false
 		end
 	end
 	
@@ -139,6 +149,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
+		R3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -146,6 +157,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		HoriSlash = false
 		AoE = false
 		SingleTarget = false
+		Slapshot = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -174,6 +186,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			DownRight = false
 			L2 = false
 			R2 = false
+			R3 = false
 			Spin = false
 			FlashStep = false
 			SlideDash = false
@@ -181,6 +194,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			HoriSlash = false
 			AoE = false
 			SingleTarget = false
+			Slapshot = false
 			--Aerial stuff: Input is shared with Aerial Dive
 			WriteByte(Btl0+0x2004C, 1) 	 
 			WriteByte(Btl0+0x20045, 97) 
@@ -215,6 +229,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
+		R3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -222,6 +237,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		HoriSlash = false
 		AoE = false
 		SingleTarget = false
+		Slapshot = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -249,6 +265,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			DownRight = false
 			L2 = false
 			R2 = false
+			R3 = false
 			Spin = false
 			FlashStep = false
 			SlideDash = false
@@ -256,6 +273,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			HoriSlash = false
 			AoE = false
 			SingleTarget = false
+			Slapshot = false
 			--Aerial stuff: Input is shared with Aerial Spiral
 			WriteByte(Btl0+0x2004C, 1) 	 
 			WriteByte(Btl0+0x20045, 97) 
@@ -284,6 +302,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
+		R3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -291,6 +310,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		HoriSlash = false
 		AoE = false
 		SingleTarget = false
+		Slapshot = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -313,6 +333,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			DownRight = false
 			L2 = false
 			R2 = false
+			R3 = false
 			Spin = false
 			FlashStep = false
 			SlideDash = false
@@ -320,6 +341,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			HoriSlash = false
 			AoE = false
 			SingleTarget = false
+			Slapshot = false
 
 		end
 	end
@@ -345,6 +367,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
+		R3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -352,6 +375,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		HoriSlash = false
 		AoE = false
 		SingleTarget = false
+		Slapshot = false
 		WriteByte(Btl0+0x2004C, 1) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x20045, 97) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x20084, 191)
@@ -376,6 +400,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			DownRight = false
 			L2 = false
 			R2 = false
+			R3 = false
 			Spin = false
 			FlashStep = false
 			SlideDash = false
@@ -383,6 +408,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			HoriSlash = false
 			AoE = false
 			SingleTarget = false
+			Slapshot = false
 
 		end
 	end
@@ -412,6 +438,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
+		R3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -419,6 +446,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		HoriSlash = false
 		AoE = false
 		SingleTarget = false
+		Slapshot = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -445,6 +473,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			DownRight = false
 			L2 = false
 			R2 = false
+			R3 = false
 			Spin = false
 			FlashStep = false
 			SlideDash = false
@@ -452,6 +481,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			HoriSlash = false
 			AoE = false
 			SingleTarget = false
+			Slapshot = false
 			--Aerial stuff: Input is shared with Magnet Splash
 			WriteByte(Btl0+0x2004C, 1) 	 
 			WriteByte(Btl0+0x20045, 97) 
@@ -487,6 +517,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		DownRight = false
 		L2 = false
 		R2 = false
+		R3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -494,6 +525,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		HoriSlash = false
 		AoE = false
 		SingleTarget = false
+		Slapshot = false
 		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
 		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
 		WriteByte(Btl0+0x202B0, 170)
@@ -519,6 +551,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			DownRight = false
 			L2 = false
 			R2 = false
+			R3 = false
 			Spin = false
 			FlashStep = false
 			SlideDash = false
@@ -526,6 +559,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 			HoriSlash = false
 			AoE = false
 			SingleTarget = false
+			Slapshot = false
 			--Aerial stuff: Input is shared with Aerial Finish
 			WriteByte(Btl0+0x2004C, 1) 	 
 			WriteByte(Btl0+0x20045, 97) 
@@ -536,7 +570,7 @@ ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 	end
 
 --Reset input windows to prevent unwanted commands from coming out. Time is 50 frames, so a little less than a second.
-if Up == true or Down == true or Right == true or DownRight == true or Down == true or L2 == true or R2 == true then
+if Up == true or Down == true or Right == true or DownRight == true or Down == true or L2 == true or R2 == true or R3 == true then
 	Timer2 = Timer2 - 1
 	if Timer2 == 0 then
 		print("Inputs not fast enough! Voided!")
@@ -548,6 +582,7 @@ if Up == true or Down == true or Right == true or DownRight == true or Down == t
 		DownRight = false
 		L2 = false
 		R2 = false
+		R3 = false
 		Spin = false
 		FlashStep = false
 		SlideDash = false
@@ -555,6 +590,68 @@ if Up == true or Down == true or Right == true or DownRight == true or Down == t
 		HoriSlash = false
 		AoE = false
 		SingleTarget = false
+		Slapshot = false
 		end
 	end
+
+	if R3 == true and Slapshot ~= true then
+		Slapshot = true
+		print("Slapshot queued up!")
+		WriteByte(Btl0+0x202A9, 3) --Vicinity Break: Type
+		WriteByte(Btl0+0x202E8, 0) --Vicinity Break: Ability Required
+		WriteByte(Btl0+0x202B0, 162)
+	end
+
+
+	if Slapshot == true and ReadInput & 16384 == 16384 then
+		--ConsolePrint("DEBUG: Spin Attack Activated!")
+		print("Slapshot activated!")
+		Up = false
+		Down = false
+		Left = false
+		Right = false
+		DownRight = false
+		L2 = false
+		R2 = false
+		R3 = false
+		Spin = false
+		FlashStep = false
+		SlideDash = false
+		FinishingLeap = false
+		HoriSlash = false
+		AoE = false
+		SingleTarget = false
+		Slapshot = false
+		WriteByte(Btl0+0x202A9, 2) 	 --Return Vicinity Break to normal.
+		WriteByte(Btl0+0x202E8, 180) --Return Vicinity Break to requiring an ability.
+		WriteByte(Btl0+0x202B0, 170)
+	end
+	if ReadByte(Btl0+0x202A9) == 3 and Slapshot == true or Slapshot == true and ReadByte(Btl0+0x202B0) == 170 then --ReadByte(Btl0+0x202A9) == 170 then --If Vicinity Command Input is entered.
+		Timer = Timer - 1
+		if Timer == 0 then
+			print("Spin attack timer ran out!")
+			Timer = 70 
+			WriteByte(Btl0+0x202A9, 2)
+			WriteByte(Btl0+0x202E8, 180)
+			WriteByte(Btl0+0x202B0, 170)
+			Up = false
+			Down = false
+			Left = false
+			Right = false
+			DownRight = false
+			L2 = false
+			R2 = false
+			R3 = false
+			Spin = false
+			FlashStep = false
+			SlideDash = false
+			FinishingLeap = false
+			HoriSlash = false
+			AoE = false
+			SingleTarget = false
+			Slapshot = false
+		end
+	end
+
+
 end
