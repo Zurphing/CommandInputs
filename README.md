@@ -8,10 +8,10 @@ Left Stick spun 360 degrees: Vicinity Break  </br>
 L3 (Left stick clicked in): Slapshot </br>
 L2 + Left Stick Up: Flash Step  </br>
 L2 + Left Stick Down: Slide Dash  </br>
-L2 + Left Stick Right + Left Stick Down + Left Stick Down Right (similar to a shoryuken input): Finishing Leap </br>
+L2 + Left Stick Down + Left Stick DownRight + Left Stick Right (Can be done in any order): Finishing Leap </br>
 
 Aerials:  </br>
-L2 + Left Stick Left + Left Stick Right: Horizontal Slash  </br>
+L2 + Left Stick Left or L2 + Left Stick Right: Horizontal Slash  </br>
 L2 + Left Stick Up: Aerial Dive </br>
 L2 + Left Stick Down: Aerial Spiral </br>
 
@@ -24,7 +24,6 @@ Combo Modifiers Currently Without Inputs: </br>
 Aerial Finish </br>
 Upper Slash </br>
 Dodge Slash </br>
-
 
 
 Command inputs are subject to change.
