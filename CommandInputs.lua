@@ -29,7 +29,7 @@ end
 
 function _OnFrame()
 ReadInput = ReadShort(0x1ACF3C)
-ReadStick = ReadByte(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals. 
+ReadStick = ReadInt(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals. 
 --Counterclockwise: 16 -> 64 -> 32 -> 128.
 	if ReadInput & 512 == 512 and R2 == false then
 		R2 = true
