@@ -5,4 +5,4 @@ assets:
 - name: scripts/CommandInputs.lua
   method: copy
   source:
-  - name: CommandInputs.lua
+  - name: CommandInputs[PTYAPointerVer].lua
