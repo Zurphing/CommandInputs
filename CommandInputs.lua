@@ -1,11 +1,10 @@
 LUAGUI_NAME = "Command Inputs"
 LUAGUI_AUTH = "Zurphing"
 LUAGUI_DESC = "Turns nearly every combo modifier into command inputs, using L3/L2/R2/Left Stick"
---Script adjustment ideas;
---Add in a "Free Use" ability that functions like the old version.
---This time, apply what you did for Dodge Slash to other abilities.
 
---Need to separate now.
+--Script recently adjusted to separate Explosion/Magnet Burst & Flash Step/Slide Dash from Aerial Dive/Aerial Spiral
+--Now there is a "free-use" ability you start the game with.
+
 Timer = 50
 Timer2 = 50
 local canExecute = false
@@ -234,7 +233,7 @@ ReadStick = ReadInt(0x29F89F0-0x56454E) --Stick reads in 10 byte intervals.
 		print("Down-2 activated")
 	end
 	if Down == true and Left == true and Down2 == true and Right == true then --or Down == true and Right == true and Down2 == true and 
-		ConsolePrint("Complex input detected!")
+		--ConsolePrint("Complex input detected!")
 		Pretzel = true
 	end
 
