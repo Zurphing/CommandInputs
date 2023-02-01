@@ -1,0 +1,9 @@
+- id: 0x3633
+  en: Input Override
+- id: 0x3634
+  en: >-
+    Equip this to override the requirement to equip
+    
+    abilities before being able to use their 
+    
+    command input!
