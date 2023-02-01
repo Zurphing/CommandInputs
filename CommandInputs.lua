@@ -59,8 +59,8 @@ end
 function _OnFrame()
 Btl0Plrp = ReadLong(0x02A22AD0-0x56454E), true
 SysBinItem = ReadLong(0x02A22A70-0x56454E), true
-if ReadShort(Btl0Plrp+0x4E, true) ~= 0xD8 then	--Gives Override ability in Sora Slot 42. This is Brave Shot.
-	WriteByte(Btl0Plrp+0x4E, 0xD8, true)
+if ReadShort(Btl0Plrp+0x4E, true) ~= 0x80D8 then	--Gives Override ability in Sora Slot 42. This is Brave Shot.
+	WriteShort(Btl0Plrp+0x4E, 0x80D8, true)
 	ConsolePrint("DEBUG: Given Override Ability!")
 end
 if ReadByte(SysBinItem+0x1227, true) ~= 0x01 then
@@ -73,14 +73,14 @@ end
 if canExecute == true then
 	for i = 0, 80, 1 do
 	local AbilityLocation = ReadShort(Ability + 0x02*i)
-		if AbilityLocation == 0x8107 and CanUseInput ~= true then
-			CanUseInput = true
-			ConsolePrint("Test ON")
-			i = 51
-		elseif AbilityLocation == 0x0107 and CanUseInput ~= false then
-			CanUseInput = false
-			ConsolePrint("Test OFF")
-		end
+		--if AbilityLocation == 0x8107 and CanUseInput ~= true then
+		--	CanUseInput = true
+		--	ConsolePrint("Test ON(Dodge Slash)")
+		--	i = 51
+		--elseif AbilityLocation == 0x0107 and CanUseInput ~= false then
+		--	CanUseInput = false
+		--	ConsolePrint("Test OFF(DodgeSlash)")
+		--end
 		if AbilityLocation == 0x80D8 and Override ~= true then
 			Override = true
 			ConsolePrint("Override enabled.")
@@ -180,7 +180,7 @@ if canExecute == true then
 	end
 end
 
-invincibility = 0x3D3966-0x56454E
+--invincibility = 0x3D3966-0x56454E
 --72 = on, 74 = off
 if Btl0 == 0 then
 	Btl0 = ReadLong(PtyaPointer)
