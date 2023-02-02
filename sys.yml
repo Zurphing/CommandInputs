@@ -7,3 +7,80 @@
     abilities before being able to use their 
     
     command input!
+- id: 0x398C
+  en: >-
+    Rapidly attacks a nearby target
+    
+    without getting flung back.
+    
+    Input: {:icon dynamic-left-analog}(L3)+{:icon dynamic-cross}
+- id: 0x3990
+  en: >-
+    Instantly closes in on and attacks
+    
+    a far target.
+    
+    Input: {:icon dynamic-l2}+{:icon dynamic-left-analog}(Down)+{:icon dynamic-cross}
+- id: 0x399C
+  en: >-
+    Closes in on far targets in midair and
+    
+    unleashes spinning attacks.
+    
+    Input: {:icon dynamic-l2}+{:icon dynamic-left-analog}(Down)+{:icon dynamic-cross}
+- id: 0x3992
+  en: >-
+    Unleashes a powerful finishing combo
+    
+    move that pierces through a target´s
+    
+    guard. Input: {:icon dynamic-r2}+{:icon dynamic-left-analog}(Up)+{:icon dynamic-cross}
+- id: 0x3994
+  en: >-
+    Unleashes a finishing combo move
+    
+    that knocks down several enemies.
+    
+    Input: {:icon dynamic-r2}+{:icon dynamic-left-analog}(Down)+{:icon dynamic-cross}
+- id: 0x3996
+  en: >-
+    Unleashes a powerful guard-piercing
+    
+    attack at the end of a combo with {:icon dynamic-square}.
+    
+    Input: {:icon dynamic-l2}+{:icon dynamic-left-analog}(Down+Down-Right+Right)+{:icon dynamic-cross}
+- id: 0x399E
+  en: >-
+    Unleashes a powerful attack that hits
+    
+    a target from left to right during a midair 
+    
+    combo with {:icon dynamic-square}. Input: {:icon dynamic-l2}+{:icon dynamic-left-analog}(Left or Right)+{:icon dynamic-cross}
+- id: 0x4E73
+  en: >-
+    Unleashes a guard-piercing attack on
+    
+    a slightly distant target while keeping up 
+    
+    your own guard. Input: {:icon dynamic-l2}+{:icon dynamic-left-analog}(Up)+{:icon dynamic-cross}
+- id: 0x4E75
+  en: >-
+    Unleashes a powerful aerial attack
+    
+    on distant targets.
+    
+    Input: {:icon dynamic-l2}+{:icon dynamic-left-analog}(Up)+{:icon dynamic-cross}
+- id: 0x4E77
+  en: >-
+    Draws enemies in to unleash a finishing
+    
+    combo move. 
+    
+    Input: {:icon dynamic-r2}+{:icon dynamic-left-analog}(Down)+{:icon dynamic-cross}
+- id: 0x4E79
+  en: >-
+    Unleashes a powerful attack
+    
+    when surrounded.
+    
+    Input: {:icon dynamic-left-analog}(Any order: Up/Right/Down/Left)+{:icon dynamic-cross}
