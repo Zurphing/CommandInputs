@@ -58,7 +58,7 @@ end
 function _OnFrame()
 Btl0Plrp = ReadLong(0x02A22AD0-0x56454E), true
 SysBinItem = ReadLong(0x02A22A70-0x56454E), true
-if ReadShort(Btl0Plrp+0x4E, true) ~= 0x80D8 then	--Gives Override ability in Sora Slot 42. This is Brave Shot.
+if ReadShort(Btl0Plrp+0x4E, true) ~= 0x00D8 then	--Gives Override ability in Sora Slot 42. This is Brave Shot.
 	WriteShort(Btl0Plrp+0x4E, 0x00D8, true)
 	ConsolePrint("DEBUG: Given Override Ability!")
 end
