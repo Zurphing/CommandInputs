@@ -1,6 +1,6 @@
 title: Command Inputs
 originalAuthor: Zurphing
-description: Activate combo modifiers using various command inputs with the left stick, L3, L2 & R2 buttons. L2+Up = Flash Step/Aerial Dive. L2+Down = Slide Dash/Aerial Spiral. L2+Left or L2+Right = Hori Slash. L3 = Slapshot. L2 + Down+DownRight+Right = Finishing Leap. Spin stick 360 for Vicinity Break. R2+Up = Guard Break. R2+Down = Explosion/Magnet Burst
+description: Activate combo modifiers using various command inputs with the left stick, L3, L2 & R2 buttons. L2+Up = Flash Step/Aerial Dive. L2+Down = Slide Dash/Aerial Spiral. L2+Left or L2+Right = Hori Slash. L3 = Slapshot. L2 + Down+DownRight+Right = Finishing Leap. Spin stick 360 for Vicinity Break. R2+Up = Guard Break. R2+Down = Explosion/Magnet Burst. Updated to V1.1 as of 4/20/23, which adjusts Aerial Dive/Aerial Spiral/Horizontal Slash to give Sora less distance in the air, allowing finer control over those moves. Additionally, Flash Step & Sliding Dash can now similarly infinitely combo into one another, like Aerial Spiral and Aerial Dive. General improvements to improve compatibility with other mods has also been made.
 assets:
 - name: scripts/CommandInputs.lua
   method: copy
