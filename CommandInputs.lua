@@ -552,10 +552,10 @@ ADScoreV = 0x0014  --Unsigned 16-byte short
 			WriteShort(Btl0+0x12C, 196, true) --MotionID To Use (What we change)
 			WriteShort(Btl0+0x12E, 4, true) --NextMotionID 
 			WriteFloat(Btl0+0x130, 14, true) --Jump
-			WriteFloat(Btl0+0x134, 50, true) --JumpMax
+			WriteFloat(Btl0+0x134, 75, true) --JumpMax
 			WriteFloat(Btl0+0x138, 14, true) --JumpMin
-			WriteFloat(Btl0+0x13C, 2, true) --SpeedMin
-			WriteFloat(Btl0+0x140, 9, true) --SpeedMax
+			WriteFloat(Btl0+0x13C, 3, true) --SpeedMin
+			WriteFloat(Btl0+0x140, 13.5, true) --SpeedMax
 			WriteFloat(Btl0+0x144, 0, true) --Near
 			WriteFloat(Btl0+0x148, 0, true) --Far
 			WriteFloat(Btl0+0x14C, 0, true) --Low
@@ -581,10 +581,10 @@ ADScoreV = 0x0014  --Unsigned 16-byte short
 			WriteShort(Btl0+0x12C, 192, true) --MotionID To Use (What we change)
 			WriteShort(Btl0+0x12E, 4, true) --NextMotionID 
 			WriteFloat(Btl0+0x130, 14, true) --Jump
-			WriteFloat(Btl0+0x134, 50, true) --JumpMax
+			WriteFloat(Btl0+0x134, 75, true) --JumpMax
 			WriteFloat(Btl0+0x138, 14, true) --JumpMin
-			WriteFloat(Btl0+0x13C, 2, true) --SpeedMin
-			WriteFloat(Btl0+0x140, 9, true) --SpeedMax
+			WriteFloat(Btl0+0x13C, 3, true) --SpeedMin
+			WriteFloat(Btl0+0x140, 13.5, true) --SpeedMax
 			WriteFloat(Btl0+0x144, 0, true) --Near
 			WriteFloat(Btl0+0x148, 0, true) --Far
 			WriteFloat(Btl0+0x14C, 0, true) --Low
@@ -610,10 +610,10 @@ ADScoreV = 0x0014  --Unsigned 16-byte short
 			WriteShort(Btl0+0x12C, 193, true) --MotionID To Use (What we change)
 			WriteShort(Btl0+0x12E, 4, true) --NextMotionID 
 			WriteFloat(Btl0+0x130, 14, true) --Jump
-			WriteFloat(Btl0+0x134, 50, true) --JumpMax
+			WriteFloat(Btl0+0x134, 75, true) --JumpMax
 			WriteFloat(Btl0+0x138, 14, true) --JumpMin
 			WriteFloat(Btl0+0x13C, 0, true) --SpeedMin
-			WriteFloat(Btl0+0x140, 9, true) --SpeedMax
+			WriteFloat(Btl0+0x140, 13.5, true) --SpeedMax
 			WriteFloat(Btl0+0x144, 0, true) --Near
 			WriteFloat(Btl0+0x148, 0, true) --Far
 			WriteFloat(Btl0+0x14C, 0, true) --Low
